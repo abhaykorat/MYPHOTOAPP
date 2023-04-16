@@ -1,0 +1,13 @@
+
+<h3>{{title}}</h3>
+
+<img [src]="profileUrl" width="200">
+<br>
+
+<button (click)="incrementCount()">Click to increment view</button>
+<p>Counter:{{viewCount}}</p>
+
+<div>
+    <input type="text" [(ngModel)]="name">
+    <p>Hello, {{name}}</p>
+</div>
