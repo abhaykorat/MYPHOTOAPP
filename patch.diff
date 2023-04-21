@@ -1,0 +1,47 @@
+From 22264adb6807718ef07586188514b87aea6db64c Mon Sep 17 00:00:00 2001
+From: abhaykorat <56267207+abhaykorat@users.noreply.github.com>
+Date: Sun, 16 Apr 2023 00:53:04 -0400
+Subject: [PATCH] Create webpack.yml
+
+---
+ .github/workflows/webpack.yml | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+ create mode 100644 .github/workflows/webpack.yml
+
+diff --git a/.github/workflows/webpack.yml b/.github/workflows/webpack.yml
+new file mode 100644
+index 0000000..b95c8ed
+--- /dev/null
++++ b/.github/workflows/webpack.yml
+@@ -0,0 +1,28 @@
++name: NodeJS with Webpack
++
++on:
++  push:
++    branches: [ "main" ]
++  pull_request:
++    branches: [ "main" ]
++
++jobs:
++  build:
++    runs-on: ubuntu-latest
++
++    strategy:
++      matrix:
++        node-version: [14.x, 16.x, 18.x]
++
++    steps:
++    - uses: actions/checkout@v3
++
++    - name: Use Node.js ${{ matrix.node-version }}
++      uses: actions/setup-node@v3
++      with:
++        node-version: ${{ matrix.node-version }}
++
++    - name: Build
++      run: |
++        npm install
++        npx webpack
+-- 
+2.37.3.windows.1
+
