@@ -11,6 +11,10 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 
+import { AngularFireModule } from 'angularfire2'; 
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 @NgModule({
   declarations: [
     AppComponent,

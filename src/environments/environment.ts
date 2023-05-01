@@ -1,12 +1,12 @@
 export const environment = {
-    production: false,
+    production: true,
     firebase: {
-    apiKey: "AIzaSyBE2y34YbbY0Ltz5jjxQOxYzYgNhoRhuWI",
-    authDomain: "backend-spring23.firebaseapp.com",
-    projectId: "backend-spring23",
-    storageBucket: "backend-spring23.appspot.com",
-    messagingSenderId: "309264962555",
-    appId: "1:309264962555:web:fdcc2b2c604e487a96715e"
+        apiKey: "AIzaSyApRPaFJqFMJBh9YtkbLTIwqnMYLFCcaCU",
+        authDomain: "myphotoapplication-93a23.firebaseapp.com",
+        projectId: "myphotoapplication-93a23",
+        storageBucket: "myphotoapplication-93a23.appspot.com",
+        messagingSenderId: "919018086526",
+        appId: "1:919018086526:web:b8d9085989b831d2c5f82f"
   
     }
 };

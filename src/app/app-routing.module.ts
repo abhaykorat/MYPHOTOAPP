@@ -9,13 +9,13 @@ import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 
 const routes: Routes = [
-{ path: 'profile', component: ProfileComponent},
+{ path: 'profile/:profileId', component: ProfileComponent},
 { path: 'login', component: LoginComponent},
-{ path: 'albums', component: MyAlbumsComponent},
+{ path: 'albums/me', component: MyAlbumsComponent},
 { path: 'create', component: CreateAlbumComponent},
-{ path: 'album', component: AlbumDetailsComponent},
-{ path: 'upload', component: UploadPictureComponent},
-{ path: 'photo', component: PhotoDetailsComponent}
+{ path: 'album/:albumId', component: AlbumDetailsComponent},
+{ path: 'upload/:albumId', component: UploadPictureComponent},
+{ path: 'photo/:photoId', component: PhotoDetailsComponent}
 ];
 
 @NgModule({
