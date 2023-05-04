@@ -1,40 +1,48 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
+ 
   constructor(private angularFireAuth: AngularFireAuth) {
+    this.angularFireAuth.authState.subscribe(user => {
+    });
   }
 
-  /* Sign up */
-  SignUp(email: string, password: string) {
-    this.angularFireAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((res: any) => {
-        console.log('Successfully signed up!', res);
-      })
-      .catch((error: { message: any; }) => {
-        console.log('Something is wrong:', error.message);
-      });    
+  SignIn(email: string, password: string): Promise<any> {
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password)
+    .then((res: any) => {
+            console.log('Successfully signed in!');
+          })
+          .catch((error: { message: any; }) => {
+            console.log('Something is wrong:',error.message);
+          });
   }
-  /* Sign in */
-  SignIn(email: string, password: string) {
-    this.angularFireAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((res: any) => {
-        console.log('Successfully signed in!');
-      })
-      .catch((error: { message: any; }) => {
-        console.log('Something is wrong:',error.message);
-      });
+
+  SignUp(email: string, password: string): Promise<any> {
+    return this.angularFireAuth.createUserWithEmailAndPassword(email, password)
+    .then((res: any) => {
+            console.log('Successfully signed up!', res);
+          })
+          .catch((error: { message: any; }) => {
+            console.log('Something is wrong:', error.message);
+          });
   }
-  /* Sign out */
-  SignOut() {
-    this.angularFireAuth
-      .signOut();
-  }  
+
+  logout(): Promise<any> {
+    return this.angularFireAuth.signOut();
+  }
+
+  // getIsAuthenticated(): boolean {
+  //   return this.isAuthenticated;
+  // }
+
+  public isAuthenticated(): Observable<boolean> {
+    return this.angularFireAuth.authState.pipe(map(user => !!user));
+  }
 }
+
+
