@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 
 @Component({
@@ -10,14 +10,14 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'Myphotoapp';
   isLoggedIn = false;
-  constructor(private authService: AuthService) {
+  constructor(private userService: UserService) {
     
-    this.authService.isAuthenticated().subscribe(authState => {
+    this.userService.isAuthenticated().subscribe(authState => {
       this.isLoggedIn = authState;
     });
   }
   onLogout() {
-    this.authService.logout()
+    this.userService.logout()
       .then(() => {
         console.log('Successfully signed out!');
       })

@@ -13,7 +13,7 @@ import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'environments/environment';
-import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 
 @NgModule({
@@ -33,7 +33,7 @@ import { AuthService } from './auth.service';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [AuthService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
