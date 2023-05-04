@@ -17,6 +17,13 @@
         </li>       
       </ul>
     </div>
+  
+    <div class="float-end" style="padding-right: 50px; padding-top: 20px;">
+      <li *ngIf="isLoggedIn"><button (click)="onLogout()">Logout</button></li>
+    </div>
+    
+  
+
   </div>
 </nav>
 <router-outlet>

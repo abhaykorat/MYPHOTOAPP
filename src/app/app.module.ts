@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, forwardRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,9 +11,10 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 
-import { AngularFireModule } from 'angularfire2'; 
-import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'environments/environment';
+import { AuthService } from './auth.service';
+
 
 @NgModule({
   declarations: [
@@ -29,9 +30,10 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
