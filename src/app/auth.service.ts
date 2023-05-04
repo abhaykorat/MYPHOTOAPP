@@ -11,7 +11,7 @@ export class AuthService {
     this.angularFireAuth.authState.subscribe(user => {
     });
   }
-
+  
   SignIn(email: string, password: string): Promise<any> {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password)
     .then((res: any) => {

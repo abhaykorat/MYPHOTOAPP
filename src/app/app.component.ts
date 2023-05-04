@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'Myphotoapp';
   isLoggedIn = false;
   constructor(private authService: AuthService) {
     
@@ -15,7 +16,6 @@ export class AppComponent {
       this.isLoggedIn = authState;
     });
   }
-  title = 'Myphotoapp';
   onLogout() {
     this.authService.logout()
       .then(() => {
