@@ -15,13 +15,17 @@ export class PhotoService {
 
   getAllPhotos():Observable<any>{
     var headers = this.getHeaders();
-    return this.http.get<any>("http://localhost:8080/api/photos/getall",{headers});
+    return this.http.get<any>("http://localhost:8080/api/photos/getall",this.getHeaders());
   }
 
-  getHeaders(){
-    var headers ={
-      'idToken': localStorage.getItem('userIdToken')
-    };
-    return headers;
+  // getHeaders(){
+  //   var headers ={
+  //     'idToken': localStorage.getItem('userIdToken')
+  //   };
+  //   return headers;
+  // }
+  getHeaders(): { [header: string]: string | null } {
+    const idToken = localStorage.getItem('userIdToken');
+    return idToken ? { 'idToken': idToken } : {};
   }
 }
