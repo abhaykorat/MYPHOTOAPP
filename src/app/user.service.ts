@@ -10,12 +10,29 @@ import { Observable, map } from 'rxjs';
 })
 export class UserService {
 
-  user: Observable<firebase.User>;
+ user : Observable<any>;
 
   constructor(private firebaseAuth: AngularFireAuth) { 
     this.user = firebaseAuth.authState;
-  }
+    console.log("User id Token at the construction of the service",localStorage.getItem('userIdToken') );
 
+
+    this.user.subscribe(
+      userInfo => {
+        console.log("User info is available", userInfo);
+        this.storeIdToken(userInfo.getIdToken());
+      }
+    );
+  }
+  storeIdToken(idToken: Promise<string>){
+    idToken.then(
+      idTokenValue => {
+        localStorage.setItem('userIdToken', idTokenValue);
+        console.log("Id Token Value:",localStorage.getItem('userIdToken'));
+      }
+    );
+
+  }
   SignIn(email: string, password: string): Promise<any> {
     return this.firebaseAuth.signInWithEmailAndPassword(email, password)
     .then((res: any) => {
@@ -37,6 +54,7 @@ export class UserService {
   }
 
   logout(): Promise<any> {
+    localStorage.clear();
     return this.firebaseAuth.signOut();
   }
 

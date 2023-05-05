@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/auth.service';
+import { UserService } from 'app/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   password : string = '';
 
 
-  constructor(private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.SignIn(this.email,this.password);
+    this.userService.SignIn(this.email,this.password);
     
     this.email = '';
     this.password = '';
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.SignUp(this.email,this.password);
+    this.userService.SignUp(this.email,this.password);
     
     this.email = '';
     this.password = '';

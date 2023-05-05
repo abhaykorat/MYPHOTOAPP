@@ -10,7 +10,7 @@ import { UserService } from './user.service';
 export class AppComponent {
   title = 'Myphotoapp';
   isLoggedIn = false;
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
     
     this.userService.isAuthenticated().subscribe(authState => {
       this.isLoggedIn = authState;
