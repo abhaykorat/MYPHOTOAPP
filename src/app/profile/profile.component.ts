@@ -13,6 +13,9 @@ export class ProfileComponent {
   
   name = 'abhay';
 
+
+  list = ["item 1","item 2","item 3"];
+
 constructor(){}
 
 ngOnInit(): void{

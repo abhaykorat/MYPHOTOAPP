@@ -1,9 +1,23 @@
 <div class="float-end" style="padding-right: 50px; padding-top: 20px;">
     <button [routerLink]="['/create']" class="btn btn-outline-success">Create Album</button>
    
-</div><br>
+</div>
 
-All my Albums will be listed here
+<h3>All Albums</h3>
 
-<button [routerLink]="['/album', 10]" >Go to specific album</button>
+<div class="row" style="padding-left: 20px; ">
+    <div class="col-sm-3 pt-3 " *ngFor="let album of albums">
+        <div class="card" style="width: 18rem;" >
+            <img class="card-img-top" src="album.coverPhotoUrl" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{album.name}}</h5>
+              <p class="card-text">Date Created:- {{album.dateCreated}}</p>
+              <a [routerLink]="['/album', album.id]" class="btn btn-primary">Go to Album</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div style="padding-top: 20px;">
+    <button [routerLink]="['/album',album.id]">Go to specific album</button>
+</div> -->
    

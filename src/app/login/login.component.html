@@ -3,7 +3,7 @@
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" (click)="makeSignInFormVisible()">Sign In</a>
+      <a class="nav-link active"  (click)="makeSignInFormVisible()">Sign In</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" (click)="makeSignUpFormVisible()">Sign Up</a>
@@ -19,10 +19,6 @@
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input type="password" class="form-control" name="password" [(ngModel)]="password">
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
     <button type="submit" class="btn btn-primary" (click)="login()">Sign In</button>
   </form>
@@ -41,6 +37,10 @@
 
     <form>
       <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="email" class="form-control" placeholder="Enter your name here" name="name" [(ngModel)]="name">
+      </div>
+      <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" aria-describedby="emailHelp" name="email" [(ngModel)]="email">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
@@ -48,10 +48,6 @@
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" name="password" [(ngModel)]="password">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
       </div>
       <button type="submit" class="btn btn-primary" (click)="signup()">Sign Up</button>
     </form>

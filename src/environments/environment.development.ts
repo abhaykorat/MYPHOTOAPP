@@ -7,5 +7,6 @@ export const environment = {
   storageBucket: "backend-spring23.appspot.com",
   messagingSenderId: "309264962555",
   appId: "1:309264962555:web:fdcc2b2c604e487a96715e"
-    }
+    },
+    API_BASE_URL: "http://localhost:8080/api/",
 };

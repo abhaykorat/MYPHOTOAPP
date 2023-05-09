@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
   signInFormVisible = true;
   email : string = '';
   password : string = '';
-
+  name : string='';
 
   constructor(private userService: UserService) {}
 
@@ -65,10 +65,11 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.userService.SignUp(this.email,this.password);
+    this.userService.SignUp(this.email,this.password,this.name);
     
     this.email = '';
     this.password = '';
+    this.name = '';
 
   }
  
