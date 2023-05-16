@@ -16,6 +16,7 @@ export class MyAlbumsComponent implements OnInit {
   constructor(private albumService: AlbumService){}
 
   ngOnInit(): void {
+    console.log("Calling Album Service from component");
     this.albumService.getAllalbums().subscribe(
       response => {
         this.albums = <Album[]>response;

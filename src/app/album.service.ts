@@ -13,6 +13,7 @@ export class AlbumService {
 
   getAllalbums():Observable<any>{
     var headers = this.getHeaders();
+    console.log("Calling get all albums method with headers " ,headers);
     return this.http.get<any>(environment.API_BASE_URL + "album/getall",this.getHeaders());
   }
 

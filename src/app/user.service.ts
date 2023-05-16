@@ -5,7 +5,7 @@ import  firebase from 'firebase/compat/app';
 import { Observable, map } from 'rxjs';
 import { user } from './user';
 import { environment } from 'environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
@@ -16,9 +16,13 @@ export class UserService {
 
   defaultProfilePhoto: string ='https://img.freepik.com/premium-vector/avatar-user-icon-vector_97886-15021.jpg?w=740';
 
- user : Observable<any>;
+  user : Observable<firebase.User | null>;
+  userEmail!: string;
+  
 
-  constructor(private firebaseAuth: AngularFireAuth,private http: HttpClient,private router: Router) { 
+  constructor(private firebaseAuth: AngularFireAuth,
+    private http: HttpClient,
+    private router: Router) { 
     this.user = firebaseAuth.authState;
     console.log("User id Token at the construction of the service",localStorage.getItem('userIdToken') );
 
@@ -26,12 +30,27 @@ export class UserService {
     this.user.subscribe(
       userInfo => {
         console.log("User info is available", userInfo);
-        this.storeIdToken(userInfo.getIdToken());
+        if(userInfo != null){
+          this.saveIdToken(userInfo);
+        } else {
+
+        }
       }
     );
+
+    this.firebaseAuth.authState.subscribe((user) => {
+      if (user) {
+        const email = user.email;
+
+        // Store the email in the AuthService or any other desired location
+        this.setUserEmail(email);
+        console.log("Got User Email",this.getUserEmail())
+      }
+    });
   }
-  storeIdToken(idToken: Promise<string>){
-    idToken.then(
+  
+  saveIdToken(firebaseUser : firebase.User){
+    firebaseUser.getIdToken().then(
       idTokenValue => {
         localStorage.setItem('userIdToken', idTokenValue);
         console.log("Id Token Value:",localStorage.getItem('userIdToken'));
@@ -39,24 +58,36 @@ export class UserService {
     );
 
   }
+  
+
+ 
+
   SignIn(email: string, password: string): Promise<any> {
     return this.firebaseAuth.signInWithEmailAndPassword(email, password)
-    .then((res: any) => {
-            console.log('Successfully signed in!');
+    .then(value => {
+            console.log('Successfully signed in!',value);
+            if(value.user != null){
+              this.saveIdToken(value.user);
+            }
+            this.router.navigate(['albums/me']);
           })
-          .catch((error: { message: any; }) => {
-            console.log('Something is wrong:',error.message);
+          .catch(err => {
+            console.log('Something is wrong:',err.message);
           });
   }
 
   SignUp(email: string, password: string, name: string): Promise<any> {
     return this.firebaseAuth.createUserWithEmailAndPassword(email, password)
-    .then((res: any) => {
-            console.log('Successfully signed up!', res);
+    .then(value => {
+            console.log('Successfully signed up!', value);
             this.registerUser(email,name);
+            if(value.user != null){
+              this.saveIdToken(value.user);
+            }
+
           })
-          .catch((error: { message: any; }) => {
-            console.log('Something is wrong:', error.message);
+          .catch(err => {
+            console.log('Something is wrong:', err.message);
           });
   }
 
@@ -68,11 +99,14 @@ export class UserService {
       name: name,
       profilePhotoUrl: this.defaultProfilePhoto
     }
-    this.http.post(environment.API_BASE_URL + "users/register",User)
+    const idToken = JSON.stringify(this.getHeaders()); // Replace with the actual id token
+
+    const headers = new HttpHeaders().set('idToken', idToken);
+    this.http.post(environment.API_BASE_URL + "users/register",User,{ headers })
         .subscribe(response =>{
           console.log('Successfully Registration',response);
           this.router.navigate(['albums/me']);
-        })
+        });
   }
 
   logout(): Promise<any> {
@@ -84,4 +118,28 @@ export class UserService {
   public isAuthenticated(): Observable<boolean> {
     return this.firebaseAuth.authState.pipe(map(user => !!user));
   }
+  
+  setUserEmail(email: string | null): void {
+    console.log("User Email Set", this.userEmail);
+    this.userEmail = email || '';
+  }
+
+  getUserEmail(): string {
+    return this.userEmail || '';
+  }
+
+  getCurrentUserProfile(){
+    var headers = this.getHeaders();
+    const emailId = this.getUserEmail();
+    console.log("email being Sent to backened :",emailId);
+    return this.http.get<any>(environment.API_BASE_URL + "users/getbyemail/" + emailId,this.getHeaders());
+  }
+ 
+
+
+  getHeaders(): { [header: string]: string | null } {
+    const idToken = localStorage.getItem('userIdToken');
+    return idToken ? { 'idToken': idToken } : {};
+  }
 }
+

@@ -1,4 +1,4 @@
-
+<!-- 
 <h3>{{title}}</h3>
 
 <img [src]="profileUrl" width="200">
@@ -14,5 +14,12 @@
 
 <ul>
     <li *ngFor="let item of list">{{item}}</li>
-</ul>
+</ul> -->
 
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"> {{user1.name}} </h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{user1.email}}</h6>
+      <img [src]="user1.profilePhotoUrl" width="150" class="rounded-circle"/>
+    </div>
+  </div>

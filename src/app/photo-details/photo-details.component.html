@@ -1,1 +1,9 @@
-<p>photo-details works!</p>
+<div class="row">
+    <div class="col-sm-6 offset-sm-3 text-center">
+      <div class="position-relative">
+        <img class="img-fluid" [src]="photo.photoUrl" alt="Photo">
+        <button class="btn btn-outline-primary position-absolute top-0 end-0 m-2" (click)="makeProfilePhoto()" type="button">Make This Profile Picture</button>
+      </div>
+    </div>
+  </div>
+  

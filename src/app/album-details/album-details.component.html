@@ -1,7 +1,18 @@
-Details of specific album will be shown here
 <div class="float-end" style="padding-right: 200px; padding-top: 20px;">
+    <a [routerLink]="['/upload', albumId]" class="btn btn-outline-success">Upload Photo</a>
+</div>
 
-<a [routerLink]="['/upload', albumId]" class="btn btn-outline-success">Upload Photo</a>
+<h3>Photos in this Album</h3>
 
-
+<div class="row" style="padding-left: 20px; ">
+    <div class="col-sm-3 pt-3 " *ngFor="let photo of photos">
+        <div class="card" style="width: 18rem;" >
+            <img class="card-img-top" [src]="photo.photoUrl" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{photo.createdBy}}</h5>
+              <p class="card-text">Date Created:- {{photo.dateCreated}}</p>
+              <a [routerLink]="['/photo', photo.id]" class="btn btn-primary">Go to Photo</a>
+            </div>
+        </div>
+    </div>
 </div>
