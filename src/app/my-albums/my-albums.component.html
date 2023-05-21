@@ -8,7 +8,7 @@
 <div class="row" style="padding-left: 20px; ">
     <div class="col-sm-3 pt-3 " *ngFor="let album of albums">
         <div class="card" style="width: 18rem;" >
-            <img class="card-img-top" src="albums.coverPhotoUrl" alt="Card image cap">
+            <img [src]="album.coverPhotoUrl"  class="card-img-top"alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{album.name}}</h5>
               <p class="card-text">Date Created:- {{album.dateCreated}}</p>

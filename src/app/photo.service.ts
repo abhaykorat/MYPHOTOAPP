@@ -3,16 +3,34 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
+import { FileService } from './file.service';
+import { photo } from './photo';
 @Injectable({
   providedIn: 'root'
 })
 
 export class PhotoService {
-  photoId?: string | null;
+  photoId!: string ;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private fileService: FileService,private router:Router) { }
   ngOnInit(): void {
+  }
+
+  savePhoto(albumId: string, fileName: string){
+    var photo: photo = {
+      albumId: albumId,
+      createdBy: "",
+      dateCreated: "",
+      id: "",
+      photoUrl: environment.API_BASE_URL + "files/view?key=" + fileName 
+
+    }
+    this.http.post(environment.API_BASE_URL + "photos/save",photo,this.getHeaders())
+        .subscribe(response =>{
+          console.log('Photo Saved',response);
+          this.router.navigate(['/photo',photo.id]);
+        });
   }
 
   makeProfilePhoto(emailId: string,photoUrl: string):Observable<any>{
@@ -26,7 +44,7 @@ export class PhotoService {
 
   getAllPhotos():Observable<any>{
     var headers = this.getHeaders();
-    return this.http.get<any>("http://localhost:8080/api/photos/getall");
+    return this.http.get<any>(environment.API_BASE_URL +"photos/getall");
   }
   getPhotoById(photoId: string):Observable<any>{
     this.photoId = photoId;

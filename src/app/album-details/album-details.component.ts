@@ -10,8 +10,8 @@ import { PhotoService } from 'app/photo.service';
 })
 export class AlbumDetailsComponent implements OnInit {
 
-  albumId?: string | null | undefined;
-  photos: photo[] | undefined;
+  albumId?: string | null;
+  photos!: photo[] ;
   photo: any;
 
   constructor(private route: ActivatedRoute,private photoService: PhotoService){}

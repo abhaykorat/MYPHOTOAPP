@@ -28,6 +28,5 @@ ngOnInit(): void{
       console.log("Got User Profile",this.user1);
     }
   )
-
 }
 }
