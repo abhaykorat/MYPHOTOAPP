@@ -17,15 +17,24 @@
         </li>   
         <li class="nav-item">
           <a class="nav-link " [routerLink]="['/photo/me']">Photo</a>
-        </li>    
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link " [routerLink]="['/login']">Login/SignUp</a>
+        </li>   
       </ul>
     </div>
   
     <div class="float-end" style="padding-right: 50px; padding-top: 20px;">
       <li *ngIf="isLoggedIn" ><button (click)="onLogout()">Logout</button></li>
     </div>
-    
-  
+    <div *ngFor="let message of messageService.messages">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Error message :- </strong> {{message}}
+      <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" (click)="clearMessages()">&times;</span>
+      </button>
+    </div>
+    </div>
 
   </div>
 </nav>

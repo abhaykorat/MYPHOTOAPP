@@ -1,9 +1,29 @@
 <div class="row">
-    <div class="col-sm-6 offset-sm-3 text-center">
-      <div class="position-relative">
-        <img class="img-fluid" [src]="photo.photoUrl" alt="Photo">
-        <button class="btn btn-outline-primary position-absolute top-0 end-0 m-2" (click)="makeProfilePhoto()" type="button">Make This Profile Picture</button>
-      </div>
+  <div class="col-sm-6 offset-sm-3 text-center">
+    <div class="position-relative">
+      <img class="img-fluid" [src]="photo.photoUrl" alt="Photo">
+      <button class="btn btn-outline-primary position-absolute top-0 end-0 m-2" (click)="makeProfilePhoto()" type="button">Make This Profile Picture</button>
     </div>
   </div>
+
+  <br>
+
   
+  <div class="form-group" style="width: 800px; margin: auto; padding: auto;">
+    <label>Comment</label>
+    <textarea class="form-control" rows="2" #commentInput></textarea>
+    <button class="btn btn-primary mt-2"  (click)="saveComment(commentInput.value,photo.id)">Save Comment</button>
+    <br>
+    <div style="padding-top:50px;">
+      <button (click)="changeOrder()">Change Order</button>
+    </div>
+    
+      <div class="card" *ngFor="let comment of comments">
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>{{ comment.message }}</p>
+            <footer class="blockquote-footer">Commented By :- <cite title="Source Title">{{ comment.createdBy }}    {{ comment.createdAt}} </cite></footer>
+          </blockquote>
+        </div>    
+  </div>
+</div>

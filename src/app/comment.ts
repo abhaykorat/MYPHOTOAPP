@@ -1,7 +1,8 @@
 export class comment{
-    createdBy?: string ;
+    createdBy?: string;
     id?: string;
     message?: string;
     photoId?: string;
+    createdAt?: any;
 
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './user.service';
+import { MessageService } from './message.service';
 
 
 @Component({
@@ -10,11 +11,14 @@ import { UserService } from './user.service';
 export class AppComponent {
   title = 'Myphotoapp';
   isLoggedIn = false;
-  constructor(public userService: UserService) {
+  constructor(public userService: UserService,public messageService: MessageService) {
     
     this.userService.isAuthenticated().subscribe(authState => {
       this.isLoggedIn = authState;
     });
+  }
+  clearMessages(){
+    this.messageService.clearMessages();
   }
   onLogout() {
     this.userService.logout()

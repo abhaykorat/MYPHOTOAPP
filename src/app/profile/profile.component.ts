@@ -18,7 +18,7 @@ export class ProfileComponent {
 
   list = ["item 1","item 2","item 3"];
 
-  user1!: user;
+  user1 = new user("","","","");
 constructor(private userService: UserService){}
 
 ngOnInit(): void{
@@ -26,6 +26,7 @@ ngOnInit(): void{
     (userProfile: user) =>{
       this.user1 = <user>userProfile;
       console.log("Got User Profile",this.user1);
+      this.userService.setuserName(this.user1.name); 
     }
   )
 }

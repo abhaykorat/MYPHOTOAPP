@@ -7,6 +7,7 @@ import { user } from './user';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MessageService } from './message.service';
 
 
 @Injectable({
@@ -18,11 +19,14 @@ export class UserService {
 
   user : Observable<firebase.User | null>;
   userEmail!: string;
+  name!: string;
+  userName!: string;
   
 
   constructor(private firebaseAuth: AngularFireAuth,
     private http: HttpClient,
-    private router: Router) { 
+    private router: Router,
+    private messageService: MessageService) { 
     this.user = firebaseAuth.authState;
     console.log("User id Token at the construction of the service",localStorage.getItem('userIdToken') );
 
@@ -31,6 +35,7 @@ export class UserService {
       userInfo => {
         console.log("User info is available", userInfo);
         if(userInfo != null){
+          
           this.saveIdToken(userInfo);
         } else {
 
@@ -40,14 +45,14 @@ export class UserService {
 
     this.firebaseAuth.authState.subscribe((user) => {
       if (user) {
-        const email = user.email;
-
-        // Store the email in the AuthService or any other desired location
+        const email = user.email;        // Store the email in the AuthService or any other desired location
         this.setUserEmail(email);
-        console.log("Got User Email",this.getUserEmail())
+
+        console.log("Got User Email",this.getUserEmail(),this.getuserName());
       }
     });
   }
+  
   
   saveIdToken(firebaseUser : firebase.User){
     firebaseUser.getIdToken().then(
@@ -68,11 +73,13 @@ export class UserService {
             console.log('Successfully signed in!',value);
             if(value.user != null){
               this.saveIdToken(value.user);
+         
             }
-            this.router.navigate(['albums/me']);
+            this.router.navigate(['profile/me']);
           })
           .catch(err => {
             console.log('Something is wrong:',err.message);
+            this.messageService.newMessage(err.message);
           });
   }
 
@@ -82,13 +89,24 @@ export class UserService {
             console.log('Successfully signed up!', value);
             this.registerUser(email,name);
             if(value.user != null){
+              this.setuserName(user.name); 
               this.saveIdToken(value.user);
             }
 
           })
           .catch(err => {
             console.log('Something is wrong:', err.message);
+            this.messageService.newMessage(err.message);
           });
+  }
+  setuserName(userName: string) {
+    console.log(" userName set",userName);
+     this.userName = userName;
+  }
+
+  getuserName() {
+    console.log("from getter userName",this.userName);
+    return this.userName;
   }
 
   registerUser(email: string, name: string){
@@ -141,5 +159,9 @@ export class UserService {
     const idToken = localStorage.getItem('userIdToken');
     return idToken ? { 'idToken': idToken } : {};
   }
+}
+
+function AuthenticatedUser() {
+  throw new Error('Function not implemented.');
 }
 

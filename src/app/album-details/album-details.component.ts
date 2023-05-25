@@ -12,7 +12,7 @@ export class AlbumDetailsComponent implements OnInit {
 
   albumId?: string | null;
   photos!: photo[] ;
-  photo: any;
+  photo = new photo();
 
   constructor(private route: ActivatedRoute,private photoService: PhotoService){}
   ngOnInit(): void {

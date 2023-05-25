@@ -9,8 +9,7 @@
         <div class="card" style="width: 18rem;" >
             <img class="card-img-top" [src]="photo.photoUrl" alt="Card image cap">
             <div class="card-body">
-              <h5 class="card-title">{{photo.createdBy}}</h5>
-              <p class="card-text">Date Created:- {{photo.dateCreated}}</p>
+              <h5 class="card-title">Created By:- {{photo.createdBy}}</h5>
               <a [routerLink]="['/photo',photo.id]" class="btn btn-primary">Go to Photo</a>
             </div>
         </div>
